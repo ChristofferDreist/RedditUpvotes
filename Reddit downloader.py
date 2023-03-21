@@ -5,6 +5,7 @@ import requests
 import re
 import os
 import urllib.request
+from PIL import Image
 
 
 ## Test for at se om det downloader
@@ -30,14 +31,27 @@ reddit = praw.Reddit(
 )
 
 subreddit = reddit.subreddit('EarthPorn')
-top = subreddit.top(limit = 10)
+top = subreddit.top()
 
 
-for submission in subreddit.top(limit = 10):
+## Iterate through top pictures in subreddit. Can't download pictures from deleted accounts. Those are skipped
+n_pictures = 1000
+
+for submission in subreddit.top(limit = n_pictures):
     if submission.url.endswith('.jpg') or submission.url.endswith('.png'):
-        urllib.request.urlretrieve(submission.url, "./Data/{filename}".format(filename = submission.url.split('?')[0].split('/')[-1]))
+        try:
+            urllib.request.urlretrieve(submission.url, "./Data/{filename}".format(filename = f"{submission.id}.{submission.url.split('.')[-1]}"))
+            img = Image.open("./Data/{filename}.jpg".format(filename = submission.id))
+            img = img.resize((224,224))
+
+            img.save("./Data/{filename}.jpg".format(filename = submission.id))
+        except:
+            pass
 
 
 
 
 
+
+#VAE 
+#Varionational auto encoder
