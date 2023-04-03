@@ -21,7 +21,11 @@ from PIL import Image
 #clientID
 #  qK4Xv6veQzln_8kyWjqbSw
 # bvzcM1BI3Lv3vWAj4UmWU2GNjs1VIw
+<<<<<<< HEAD
 # 
+=======
+
+>>>>>>> CNN
 reddit = praw.Reddit(
     client_id = "qK4Xv6veQzln_8kyWjqbSw",
     client_secret = "bvzcM1BI3Lv3vWAj4UmWU2GNjs1VIw",
@@ -35,7 +39,15 @@ top = subreddit.top()
 
 
 ## Iterate through top pictures in subreddit. Can't download pictures from deleted accounts. Those are skipped
+<<<<<<< HEAD
 n_pictures = 1000
+=======
+n_pictures = 100
+
+submission_ids = []
+upvote_ratio = []
+score = []
+>>>>>>> CNN
 
 for submission in subreddit.top(limit = n_pictures):
     if submission.url.endswith('.jpg') or submission.url.endswith('.png'):
@@ -45,6 +57,15 @@ for submission in subreddit.top(limit = n_pictures):
             img = img.resize((224,224))
 
             img.save("./Data/{filename}.jpg".format(filename = submission.id))
+<<<<<<< HEAD
+=======
+
+            submission_ids.append(submission_ids)
+            upvote_ratio.append(submission.upvote_ratio)
+            score.append(submission.score)
+
+
+>>>>>>> CNN
         except:
             pass
 
