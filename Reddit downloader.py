@@ -5,6 +5,7 @@ import requests
 import re
 import os
 import urllib.request
+from PIL import Image
 
 
 ## Test for at se om det downloader
@@ -20,7 +21,11 @@ import urllib.request
 #clientID
 #  qK4Xv6veQzln_8kyWjqbSw
 # bvzcM1BI3Lv3vWAj4UmWU2GNjs1VIw
+<<<<<<< HEAD
 # 
+=======
+
+>>>>>>> CNN
 reddit = praw.Reddit(
     client_id = "qK4Xv6veQzln_8kyWjqbSw",
     client_secret = "bvzcM1BI3Lv3vWAj4UmWU2GNjs1VIw",
@@ -30,14 +35,44 @@ reddit = praw.Reddit(
 )
 
 subreddit = reddit.subreddit('EarthPorn')
-top = subreddit.top(limit = 10)
+top = subreddit.top()
 
 
-for submission in subreddit.top(limit = 10):
+## Iterate through top pictures in subreddit. Can't download pictures from deleted accounts. Those are skipped
+<<<<<<< HEAD
+n_pictures = 1000
+=======
+n_pictures = 100
+
+submission_ids = []
+upvote_ratio = []
+score = []
+>>>>>>> CNN
+
+for submission in subreddit.top(limit = n_pictures):
     if submission.url.endswith('.jpg') or submission.url.endswith('.png'):
-        urllib.request.urlretrieve(submission.url, "./Data/{filename}".format(filename = submission.url.split('?')[0].split('/')[-1]))
+        try:
+            urllib.request.urlretrieve(submission.url, "./Data/{filename}".format(filename = f"{submission.id}.{submission.url.split('.')[-1]}"))
+            img = Image.open("./Data/{filename}.jpg".format(filename = submission.id))
+            img = img.resize((224,224))
+
+            img.save("./Data/{filename}.jpg".format(filename = submission.id))
+<<<<<<< HEAD
+=======
+
+            submission_ids.append(submission_ids)
+            upvote_ratio.append(submission.upvote_ratio)
+            score.append(submission.score)
+
+
+>>>>>>> CNN
+        except:
+            pass
 
 
 
 
 
+
+#VAE 
+#Varionational auto encoder
